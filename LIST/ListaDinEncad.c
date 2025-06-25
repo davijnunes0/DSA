@@ -110,6 +110,117 @@ int insere_lista_final(Lista* li, struct aluno al){
     return 1;
 }
 
+int insere_lista_ordenada(Lista *li, struct aluno al){
+
+    if(li == NULL)
+        return 0;
+
+    Elem* no;
+    no = (Elem*) malloc(sizeof(Elem));
+
+    if(no == NULL) return 0;
+
+    no->dados = al;
+
+    if(lista_vazia(li)){
+        no->prox = (*li);
+        *li = no;
+        return 1;
+    }else{
+        Elem *ant, *atual = (*li);
+        while(atual != NULL && atual->dados.matricula < al.matricula){
+            ant = atual;
+            atual = atual->prox;
+        }
+        // Insere no início
+        if(atual == *li){
+            no->prox = (*li);
+            *li = no;
+        }else{
+            no->prox = atual;
+            ant->prox = no;
+        }
+
+        return 1;
+    }
+
+
+}
+
+// Removendo no início da lista
+int remove_lista_inicio(Lista* li){
+    if(li == NULL){
+        return 0;
+    }
+
+    if((*li) == NULL){
+        return 0;
+    }
+
+    Elem *no = (*li);
+    *li = no->prox;
+    free(no);
+    return 1;
+}
+
+// Removendo no final da lista
+int remove_lista_final(Lista *li){
+
+    if(li == NULL)
+        return 0;
+    
+    if((*li) == NULL) // Lista vazia
+        return 0;
+    
+    Elem *ant, *no = *li;
+
+    while(no->prox != NULL){
+        ant = no;
+        no = no->prox;
+    }
+
+    /*
+        Se no também e o início da lista, então o início da lista deverá apontar para a posição seguinte a ele, que, neste caso, é a constante NULL,
+        ficando assim a lista vazia.
+    */
+    if(no == (*li)){
+        *li = no->prox;
+    /*
+        Caso contrário, o penúltimo elemento da lista (ant) irá apontar para o elemento seguinte ao último (no).
+    */
+    }else{
+        ant->prox = no->prox;
+    }
+    // Liberando a memória do nó removido
+    free(no);
+    return 1;
+
+
+}
+
+int remove_lista(Lista* li, int mat){
+    if(li == NULL)
+        return 0;
+    if((*li) == NULL)
+        return 0;
+    
+    Elem *ant, *no = *li;
+    while(no != NULL && no->dados.matricula != mat){
+        ant = no;
+        no = no->prox;
+    }
+
+    if(no == NULL) // Elemento não encontrado
+        return 0;
+    
+    if(no == *li) // Remover o primeiro
+        *li = no->prox;
+    else
+        ant->prox = no->prox;
+    free(no);
+    return 1;
+}
+
 int print_aluno(Lista* li){
 
     // Verificação se a lista foi inicializada
@@ -132,4 +243,5 @@ int print_aluno(Lista* li){
         aux = aux->prox;
     }
 }
+
 
