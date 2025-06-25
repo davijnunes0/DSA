@@ -93,6 +93,54 @@ int insertEnd(List* li, int number){
 
     return 1;
 }
+/**
+ * Insere um novo nó com o dado 'data' em uma 'position' específica da lista.
+ * @param head Ponteiro para o ponteiro do início da lista.
+ * @param position Índice onde o novo nó será inserido (começa em 0).
+ * @param data O valor inteiro a ser armazenado no novo nó.
+ */
+void insertAtPosition(List* li, int position, int data) {
+    // Valida a posição
+    if (position < 0) {
+        printf("Posição inválida. Deve ser 0 ou maior.\n");
+        return;
+    }
+
+    // Cria o novo nó
+    it* no;
+    no = (it*) malloc(sizeof(it));
+    no->value = data;
+
+    if(no == NULL)
+        return 0;
+
+    // Caso especial: Inserção no início da lista (posição 0)
+    if (position == 0) {
+        no->next = (*li); // O novo nó aponta para o antigo início
+        *li = no; // A cabeça da lista agora é o novo nó
+        return;
+    }
+
+    // Percorre a lista até a posição ANTERIOR à de inserção
+    it* var = (*li);
+    int currentPosition = 0;
+    while (var !=   NULL && currentPosition < position - 1) {
+        var = var->next;
+        currentPosition++;
+    }
+
+    // Se a posição for válida (nó anterior existe)
+    if (var == NULL) {
+        printf("Posição %d está fora do alcance da lista.\n", position);
+        free(no); // Libera a memória do nó que não será usado
+        return;
+    }
+
+    // Realiza a inserção ajustando os ponteiros
+    no->next = var->next;
+    var->next = no;
+}
+
 
 int printList(List* li){
 

@@ -19,6 +19,8 @@ int main(){
     insere_lista_inicio(li,al);
     printf("Quantidade: %d\n",tamanho_lista(li));
 
+    struct aluno *al2;
+    busca_lista_pos(li,1,al2);
 
     return 0;
 

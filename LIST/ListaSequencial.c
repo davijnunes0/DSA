@@ -10,7 +10,7 @@ struct lista{
 Lista* cria_lista(){
 
     //  Define o ponteiro do tipo Lista
-    Lista *li;
+    Lista *li;  
 
     // Aloca a memória necessária para utilização dessa struct
     li = (Lista*) malloc(sizeof(struct lista));

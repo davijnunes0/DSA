@@ -18,6 +18,6 @@ int remove_lista_final(Lista *li);
 int tamanho_lista(Lista* li);
 int lista_vazia(Lista* li);
 int lista_cheia(Lista* li);
-int busca_list_mat(Lista* li, int mat, struct aluno *al);
 int busca_list_pos(Lista* li, int pos, struct aluno *al);
+int busca_list_mat(Lista* li, int mat, struct aluno *al);
 int print_aluno(Lista* li);
